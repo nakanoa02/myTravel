@@ -38,7 +38,7 @@ body {
 
 /* Cards */
 .cards { list-style: none; padding: 0; }
-.card { border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: var(--shadow); }
+.card { border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
 .img-placeholder { width: 100%; aspect-ratio: 16 / 9; background: #eef2f7; border-radius: 8px; }
 .card-title { margin: 0 8px 8px 0; font-size: 22px; font-weight: 700; text-align: left; }
 .meta-row { display: flex; align-items: center; gap: 8px; color: var(--muted); margin-bottom: 6px; }

@@ -117,13 +117,20 @@ export default function TravelPage() {
               .filter((it) => showMinor || it.importance !== 'minor')
               .sort((i1, i2) => compareTime(i1.startTime, i2.startTime))
               .map((item, idx) => (
-              <Card key={day.date + '-' + idx} component="li" className="card">
+              <Card
+                key={day.date + '-' + idx}
+                component="li"
+                className="card"
+                variant="outlined"
+                elevation={0}
+                sx={{ borderColor: 'divider', boxShadow: '0 2px 10px rgba(0,0,0,0.06)', borderRadius: '12px' }}
+              >
                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems="center">
                   <Box sx={{ width: { xs: '100%', sm: 240 } }}>
                     {item.photoUrl ? (
-                      <CardMedia component="img" src={item.photoUrl} alt={item.title} sx={{ width: '100%', aspectRatio: '16/9', borderRadius: 1 }} />
+                      <CardMedia component="img" src={item.photoUrl} alt={item.title} sx={{ width: '100%', aspectRatio: '16/9', borderRadius: '10px' }} />
                     ) : (
-                      <Box className="img-placeholder" sx={{ width: '100%', aspectRatio: '16/9', borderRadius: 1 }} aria-label={item.title} />
+                      <Box className="img-placeholder" sx={{ width: '100%', aspectRatio: '16/9', borderRadius: '10px' }} aria-label={item.title} />
                     )}
                   </Box>
                   <CardContent sx={{ p: 0, flex: 1 }}>
