@@ -1,4 +1,16 @@
 import { useState } from 'react'
+import Container from '@mui/material/Container'
+import Typography from '@mui/material/Typography'
+import Switch from '@mui/material/Switch'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import Stack from '@mui/material/Stack'
+import Chip from '@mui/material/Chip'
+import Box from '@mui/material/Box'
+import AccessTimeIcon from '@mui/icons-material/AccessTime'
+import LocationOnIcon from '@mui/icons-material/LocationOn'
 
 type PlanItem = {
   photoUrl?: string
@@ -84,86 +96,64 @@ function compareTime(a: string, b: string) {
 export default function TravelPage() {
   const [showMinor, setShowMinor] = useState(false)
   return (
-    <main className="page">
-      <header className="page-header">
-        <h1>旅行プラン</h1>
-        <div className="filter-row">
-          <label className="toggle">
-            <span className="toggle-label">補助項目を表示する</span>
-            <input
-              type="checkbox"
-              className="toggle-input"
-              checked={showMinor}
-              onChange={(e) => setShowMinor(e.target.checked)}
-            />
-            <span className="toggle-track"><span className="toggle-thumb" /></span>
-          </label>
-        </div>
-      </header>
+    <Container maxWidth="md" className="page">
+      <Box className="page-header">
+        <Typography variant="h4" component="h1">旅行プラン</Typography>
+        <Box className="filter-row">
+          <FormControlLabel
+            label={<Typography variant="body2">補助項目を表示する</Typography>}
+            control={<Switch checked={showMinor} onChange={(e) => setShowMinor(e.target.checked)} />}
+          />
+        </Box>
+      </Box>
 
       {itinerary.map((day) => (
         <section key={day.date} className="day">
-          <h2 className="day-title">
+          <Typography variant="h6" className="day-title">
             <time dateTime={day.date}>{day.date}</time>
-          </h2>
-          <ul className="cards">
+          </Typography>
+          <Stack component="ul" className="cards" spacing={2}>
             {[...day.items]
               .filter((it) => showMinor || it.importance !== 'minor')
               .sort((i1, i2) => compareTime(i1.startTime, i2.startTime))
               .map((item, idx) => (
-              <li key={day.date + '-' + idx} className="card">
-                <div className="card-img">
-                  {item.photoUrl ? (
-                    <img src={item.photoUrl} alt={item.title} loading="lazy" />
-                  ) : (
-                    <div className="img-placeholder" aria-label={item.title} />
-                  )}
-                </div>
-                <div className="card-body">
-                  <h3 className="card-title">{item.title}</h3>
-                  <div className="meta-row">
-                    <ClockIcon />
-                    <span className="time-range">
-                      <time dateTime={item.startTime}>{item.startTime}</time>
-                      {' '}–{' '}
-                      <time dateTime={item.endTime}>{item.endTime}</time>
-                    </span>
-                  </div>
-                  <div className="meta-row">
-                    <PinIcon />
-                    <span className="place">{item.place}</span>
-                  </div>
-                  {item.tags && item.tags.length > 0 && (
-                    <div className="tags">
-                      {item.tags.map((t) => (
-                        <span key={t} className="tag">{t}</span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </li>
+              <Card key={day.date + '-' + idx} component="li" className="card">
+                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems="center">
+                  <Box sx={{ width: { xs: '100%', sm: 240 } }}>
+                    {item.photoUrl ? (
+                      <CardMedia component="img" src={item.photoUrl} alt={item.title} sx={{ width: '100%', aspectRatio: '16/9', borderRadius: 1 }} />
+                    ) : (
+                      <Box className="img-placeholder" sx={{ width: '100%', aspectRatio: '16/9', borderRadius: 1 }} aria-label={item.title} />
+                    )}
+                  </Box>
+                  <CardContent sx={{ p: 0, flex: 1 }}>
+                    <Typography variant="h6" className="card-title">{item.title}</Typography>
+                    <Stack direction="row" spacing={1} alignItems="center" className="meta-row">
+                      <AccessTimeIcon fontSize="small" />
+                      <Typography variant="body2" className="time-range">
+                        <time dateTime={item.startTime}>{item.startTime}</time>
+                        {' '}–{' '}
+                        <time dateTime={item.endTime}>{item.endTime}</time>
+                      </Typography>
+                    </Stack>
+                    <Stack direction="row" spacing={1} alignItems="center" className="meta-row">
+                      <LocationOnIcon fontSize="small" />
+                      <Typography variant="body2" className="place">{item.place}</Typography>
+                    </Stack>
+                    {item.tags && item.tags.length > 0 && (
+                      <Stack direction="row" spacing={1} flexWrap="wrap" className="tags">
+                        {item.tags.map((t) => (
+                          <Chip key={t} label={t} size="small" variant="outlined" />
+                        ))}
+                      </Stack>
+                    )}
+                  </CardContent>
+                </Stack>
+              </Card>
             ))}
-          </ul>
+          </Stack>
         </section>
       ))}
-    </main>
-  )
-}
-
-function ClockIcon() {
-  return (
-    <svg className="icon" viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M12 7v5l3 2" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  )
-}
-
-function PinIcon() {
-  return (
-    <svg className="icon" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z" fill="none" stroke="currentColor" strokeWidth="1.5" />
-      <circle cx="12" cy="9" r="2" fill="currentColor" />
-    </svg>
+    </Container>
   )
 }

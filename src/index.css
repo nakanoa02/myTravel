@@ -37,16 +37,14 @@ body {
 .day-title { font-size: 20px; margin: 0 0 12px; text-align: left;}
 
 /* Cards */
-.cards { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr; gap: 12px; }
-.card { display: grid; grid-template-columns: 240px 1fr; gap: 16px; align-items: center; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: var(--shadow); }
-.card-img img, .img-placeholder { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; display: block; background: #eef2f7; }
+.cards { list-style: none; padding: 0; }
+.card { border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: var(--shadow); }
+.img-placeholder { width: 100%; aspect-ratio: 16 / 9; background: #eef2f7; border-radius: 8px; }
 .card-title { margin: 0 8px 8px 0; font-size: 22px; font-weight: 700; text-align: left; }
 .meta-row { display: flex; align-items: center; gap: 8px; color: var(--muted); margin-bottom: 6px; }
-.icon { width: 18px; height: 18px; }
 .time-range, .place { font-size: 14px; }
 .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-.tag { padding: 6px 10px; border: 1px solid var(--border); border-radius: 999px; background: #fff; font-size: 12px; }
 
 @media (max-width: 640px) {
-  .card { grid-template-columns: 1fr; }
+  /* MUI Stack handles layout */
 }
