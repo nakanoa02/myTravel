@@ -4,8 +4,9 @@ import Container from '@mui/material/Container'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
 import { useState } from 'react'
+import TabPanel from './components/TabPanel'
+import NewTabContent from './components/NewTabContent'
 
 function App() {
   const [tab, setTab] = useState(0)
@@ -27,31 +28,18 @@ function App() {
         </Tabs>
       </Box>
 
-      {/* Tab panels */}
-      <Box role="tabpanel" hidden={tab !== 0}>
-        {tab === 0 && <TravelPage />}
-      </Box>
-      <Box role="tabpanel" hidden={tab !== 1}>
-        {tab === 1 && (
-          <Box sx={{ p: 2 }}>
-            <Typography>新しいタブ</Typography>
-          </Box>
-        )}
-      </Box>
-      <Box role="tabpanel" hidden={tab !== 2}>
-        {tab === 2 && (
-          <Box sx={{ p: 2 }}>
-            <Typography>新しいタブ</Typography>
-          </Box>
-        )}
-      </Box>
-      <Box role="tabpanel" hidden={tab !== 3}>
-        {tab === 3 && (
-          <Box sx={{ p: 2 }}>
-            <Typography>新しいタブ</Typography>
-          </Box>
-        )}
-      </Box>
+      <TabPanel value={tab} index={0}>
+        <TravelPage />
+      </TabPanel>
+      <TabPanel value={tab} index={1}>
+        <NewTabContent label="新しいタブ1" />
+      </TabPanel>
+      <TabPanel value={tab} index={2}>
+        <NewTabContent label="新しいタブ2" />
+      </TabPanel>
+      <TabPanel value={tab} index={3}>
+        <NewTabContent label="新しいタブ3" />
+      </TabPanel>
     </Container>
   )
 }
