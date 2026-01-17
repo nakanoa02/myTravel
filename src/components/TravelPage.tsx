@@ -36,9 +36,10 @@ async function fetchItinerary() {
   return res.data
 }
 
-function compareTime(a: string, b: string) {
-  return a.localeCompare(b)
+function compareTime(a?: string, b?: string) {
+  return (a ?? '').localeCompare(b ?? '')
 }
+
 
 export default function TravelPage() {
   const [showMinor, setShowMinor] = useState(false)
@@ -82,18 +83,18 @@ export default function TravelPage() {
         <Alert severity="error" sx={{ my: 2 }}>{error}</Alert>
       )}
 
-      {!loading && !error && itinerary.map((day) => (
+      {!loading && !error && itinerary.map((day, dIdx) => (
         <section key={day.date} className="day">
           <Typography variant="h6" className="day-title">
             <time dateTime={day.date}>{day.date}</time>
           </Typography>
           <Stack component="ul" className="cards" spacing={2}>
-            {[...day.items]
+            {(Array.isArray(day.items) ? [...day.items] : [])
               .filter((it) => showMinor || it.importance !== 'minor')
               .sort((i1, i2) => compareTime(i1.startTime, i2.startTime))
               .map((item, idx) => (
               <Card
-                key={day.date + '-' + idx}
+                key={(day.date || String(dIdx)) + '-' + idx}
                 component="li"
                 className="card"
                 variant="outlined"
@@ -103,24 +104,24 @@ export default function TravelPage() {
                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems="center">
                   <Box sx={{ width: { xs: '100%', sm: 240 } }}>
                     {item.photoUrl ? (
-                      <CardMedia component="img" src={item.photoUrl} alt={item.title} sx={{ width: '100%', aspectRatio: '16/9', borderRadius: '10px' }} />
+                      <CardMedia component="img" src={item.photoUrl} alt={item.title?.trim() || 'タイトルなし'} sx={{ width: '100%', aspectRatio: '16/9', borderRadius: '10px' }} />
                     ) : (
-                      <Box className="img-placeholder" sx={{ width: '100%', aspectRatio: '16/9', borderRadius: '10px' }} aria-label={item.title} />
+                      <Box className="img-placeholder" sx={{ width: '100%', aspectRatio: '16/9', borderRadius: '10px' }} aria-label={item.title?.trim() || 'タイトルなし'} />
                     )}
                   </Box>
                   <CardContent sx={{ p: 0, flex: 1 }}>
-                    <Typography variant="h6" className="card-title">{item.title}</Typography>
+                    <Typography variant="h6" className="card-title">{item.title?.trim() || 'タイトルなし'}</Typography>
                     <Stack direction="row" spacing={1} alignItems="center" className="meta-row">
                       <AccessTimeIcon fontSize="small" />
                       <Typography variant="body2" className="time-range">
-                        <time dateTime={item.startTime}>{item.startTime}</time>
+                        <time dateTime={item.startTime ?? ''}>{item.startTime ?? ''}</time>
                         {' '}–{' '}
-                        <time dateTime={item.endTime}>{item.endTime}</time>
+                        <time dateTime={item.endTime ?? ''}>{item.endTime ?? ''}</time>
                       </Typography>
                     </Stack>
                     <Stack direction="row" spacing={1} alignItems="center" className="meta-row">
                       <LocationOnIcon fontSize="small" />
-                      <Typography variant="body2" className="place">{item.place}</Typography>
+                      <Typography variant="body2" className="place">{item.place ?? ''}</Typography>
                     </Stack>
                     {item.tags && item.tags.length > 0 && (
                       <Stack direction="row" spacing={1} flexWrap="wrap" className="tags">
