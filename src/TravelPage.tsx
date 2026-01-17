@@ -98,7 +98,6 @@ export default function TravelPage() {
   return (
     <Container maxWidth="md" className="page">
       <Box className="page-header">
-        <Typography variant="h4" component="h1">旅行プラン</Typography>
         <Box className="filter-row">
           <FormControlLabel
             label={<Typography variant="body2">補助項目を表示する</Typography>}
