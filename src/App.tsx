@@ -1,5 +1,5 @@
 import './App.css'
-import TravelPage from './TravelPage'
+import TravelPage from './components/TravelPage'
 import Container from '@mui/material/Container'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
