@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import Switch from '@mui/material/Switch'
@@ -9,6 +10,8 @@ import CardMedia from '@mui/material/CardMedia'
 import Stack from '@mui/material/Stack'
 import Chip from '@mui/material/Chip'
 import Box from '@mui/material/Box'
+import Alert from '@mui/material/Alert'
+import CircularProgress from '@mui/material/CircularProgress'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 
@@ -27,67 +30,11 @@ type Day = {
   items: PlanItem[]
 }
 
-const itinerary: Day[] = [
-  {
-    date: '2025-03-20',
-    items: [
-      {
-        photoUrl: '/images/placeholder.svg',
-        title: '朝食カフェ',
-        startTime: '08:30',
-        endTime: '09:30',
-        place: '中目黒 Cafe A',
-        tags: ['food', 'cafe']
-      },
-      {
-        photoUrl: '/images/placeholder.svg',
-        title: '電車で移動',
-        startTime: '09:30',
-        endTime: '10:00',
-        place: '中目黒駅 → 代々木駅',
-        tags: ['move'],
-        importance: 'minor'
-      },
-      {
-        photoUrl: '/images/placeholder.svg',
-        title: '美術館',
-        startTime: '10:00',
-        endTime: '12:00',
-        place: '東京都現代美術館',
-        tags: ['art', 'museum']
-      },
-      {
-        photoUrl: '/images/placeholder.svg',
-        title: 'ランチ',
-        startTime: '12:30',
-        endTime: '13:30',
-        place: '銀座 Restaurant B',
-        tags: ['food']
-      },
-    ],
-  },
-  {
-    date: '2025-03-21',
-    items: [
-      {
-        photoUrl: '/images/placeholder.svg',
-        title: '散策',
-        startTime: '09:00',
-        endTime: '11:00',
-        place: '浅草〜上野エリア',
-        tags: ['walk']
-      },
-      {
-        photoUrl: '/images/placeholder.svg',
-        title: 'スイーツタイム',
-        startTime: '15:00',
-        endTime: '16:00',
-        place: '表参道 パティスリー C',
-        tags: ['dessert', 'cafe']
-      },
-    ],
-  },
-]
+// Load itinerary from JSON (to be replaced by backend API in the future)
+async function fetchItinerary() {
+  const res = await axios.get<Day[]>('/mock/api/itinerary.json')
+  return res.data
+}
 
 function compareTime(a: string, b: string) {
   return a.localeCompare(b)
@@ -95,6 +42,25 @@ function compareTime(a: string, b: string) {
 
 export default function TravelPage() {
   const [showMinor, setShowMinor] = useState(false)
+  const [itinerary, setItinerary] = useState<Day[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    let mounted = true
+    ;(async () => {
+      try {
+        setLoading(true)
+        const data = await fetchItinerary()
+        if (mounted) setItinerary(data)
+      } catch (e: any) {
+        if (mounted) setError(e?.message ?? 'データの取得に失敗しました')
+      } finally {
+        if (mounted) setLoading(false)
+      }
+    })()
+    return () => { mounted = false }
+  }, [])
   return (
     <Container maxWidth="md" className="page">
       <Box className="page-header">
@@ -106,7 +72,17 @@ export default function TravelPage() {
         </Box>
       </Box>
 
-      {itinerary.map((day) => (
+      {loading && (
+        <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
+          <CircularProgress size={24} />
+        </Box>
+      )}
+
+      {error && (
+        <Alert severity="error" sx={{ my: 2 }}>{error}</Alert>
+      )}
+
+      {!loading && !error && itinerary.map((day) => (
         <section key={day.date} className="day">
           <Typography variant="h6" className="day-title">
             <time dateTime={day.date}>{day.date}</time>

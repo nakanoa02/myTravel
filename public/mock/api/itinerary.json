@@ -1,0 +1,61 @@
+[
+  {
+    "date": "2025-03-20",
+    "items": [
+      {
+        "photoUrl": "/images/placeholder.svg",
+        "title": "朝食カフェ",
+        "startTime": "08:30",
+        "endTime": "09:30",
+        "place": "中目黒 Cafe A",
+        "tags": ["food", "cafe"]
+      },
+      {
+        "photoUrl": "/images/placeholder.svg",
+        "title": "電車で移動",
+        "startTime": "09:30",
+        "endTime": "10:00",
+        "place": "中目黒駅 → 代々木駅",
+        "tags": ["move"],
+        "importance": "minor"
+      },
+      {
+        "photoUrl": "/images/placeholder.svg",
+        "title": "美術館",
+        "startTime": "10:00",
+        "endTime": "12:00",
+        "place": "東京都現代美術館",
+        "tags": ["art", "museum"]
+      },
+      {
+        "photoUrl": "/images/placeholder.svg",
+        "title": "ランチ",
+        "startTime": "12:30",
+        "endTime": "13:30",
+        "place": "銀座 Restaurant B",
+        "tags": ["food"]
+      }
+    ]
+  },
+  {
+    "date": "2025-03-21",
+    "items": [
+      {
+        "photoUrl": "/images/placeholder.svg",
+        "title": "散策",
+        "startTime": "09:00",
+        "endTime": "11:00",
+        "place": "浅草〜上野エリア",
+        "tags": ["walk"]
+      },
+      {
+        "photoUrl": "/images/placeholder.svg",
+        "title": "スイーツタイム",
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "place": "表参道 パティスリー C",
+        "tags": ["dessert", "cafe"]
+      }
+    ]
+  }
+]
