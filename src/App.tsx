@@ -7,6 +7,7 @@ import Box from '@mui/material/Box'
 import { useState } from 'react'
 import TabPanel from './components/TabPanel'
 import NewTabContent from './components/NewTabContent'
+import MapTab from './components/MapTab'
 
 function App() {
   const [tab, setTab] = useState(0)
@@ -32,7 +33,7 @@ function App() {
         <TravelPage />
       </TabPanel>
       <TabPanel value={tab} index={1}>
-        <NewTabContent label="新しいタブ1" />
+        <MapTab />
       </TabPanel>
       <TabPanel value={tab} index={2}>
         <NewTabContent label="新しいタブ2" />
