@@ -22,7 +22,7 @@ function App() {
           variant="scrollable"
           scrollButtons="auto"
         >
-          <Tab label="いくとこリスト" />
+          <Tab label="スケジュール" />
           <Tab label="新しいタブ1" />
           <Tab label="新しいタブ2" />
           <Tab label="新しいタブ3" />
