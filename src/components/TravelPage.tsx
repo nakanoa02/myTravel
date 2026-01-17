@@ -40,6 +40,28 @@ function compareTime(a?: string, b?: string) {
   return (a ?? '').localeCompare(b ?? '')
 }
 
+function TimeRangeText({ start, end }: { start?: string; end?: string }) {
+  const s = start?.trim()
+  const e = end?.trim()
+  // Show only one value if one is missing or both are equal.
+  if (s && (!e || s === e)) {
+    return <time dateTime={s}>{s}</time>
+  }
+  if (!s && e) {
+    return <time dateTime={e}>{e}</time>
+  }
+  if (s && e && s !== e) {
+    return (
+      <>
+        <time dateTime={s}>{s}</time>
+        {' '}–{' '}
+        <time dateTime={e}>{e}</time>
+      </>
+    )
+  }
+  return null
+}
+
 
 export default function TravelPage() {
   const [showMinor, setShowMinor] = useState(false)
@@ -114,16 +136,14 @@ export default function TravelPage() {
                     <Stack direction="row" spacing={1} alignItems="center" className="meta-row">
                       <AccessTimeIcon fontSize="small" />
                       <Typography variant="body2" className="time-range">
-                        <time dateTime={item.startTime ?? ''}>{item.startTime ?? ''}</time>
-                        {' '}–{' '}
-                        <time dateTime={item.endTime ?? ''}>{item.endTime ?? ''}</time>
+                        <TimeRangeText start={item.startTime} end={item.endTime} />
                       </Typography>
                     </Stack>
                     <Stack direction="row" spacing={1} alignItems="center" className="meta-row">
                       <LocationOnIcon fontSize="small" />
                       <Typography variant="body2" className="place">{item.place ?? ''}</Typography>
                     </Stack>
-                    {item.tags && item.tags.length > 0 && (
+                    {Array.isArray(item.tags) && item.tags.length > 0 && (
                       <Stack direction="row" spacing={1} flexWrap="wrap" className="tags">
                         {item.tags.map((t) => (
                           <Chip key={t} label={t} size="small" variant="outlined" />
