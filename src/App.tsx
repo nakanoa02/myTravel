@@ -23,7 +23,7 @@ function App() {
           scrollButtons="auto"
         >
           <Tab label="スケジュール" />
-          <Tab label="新しいタブ1" />
+          <Tab label="行きたいとこ" />
           <Tab label="新しいタブ2" />
           <Tab label="新しいタブ3" />
         </Tabs>
