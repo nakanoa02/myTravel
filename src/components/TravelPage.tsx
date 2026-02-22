@@ -14,8 +14,9 @@ import Alert from '@mui/material/Alert'
 import CircularProgress from '@mui/material/CircularProgress'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
-import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import Link from '@mui/material/Link'
+import Collapse from '@mui/material/Collapse'
+import CardActionArea from '@mui/material/CardActionArea'
 
 type PlanItem = {
   photoUrl?: string
@@ -69,6 +70,7 @@ function TimeRangeText({ start, end }: { start?: string; end?: string }) {
 
 export default function TravelPage() {
   const [showMinor, setShowMinor] = useState(false)
+  const [openIds, setOpenIds] = useState<Record<string, boolean>>({})
   const [itinerary, setItinerary] = useState<Day[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -118,60 +120,71 @@ export default function TravelPage() {
             {(Array.isArray(day.items) ? [...day.items] : [])
               .filter((it) => showMinor || it.importance !== 'minor')
               .sort((i1, i2) => compareTime(i1.startTime, i2.startTime))
-              .map((item, idx) => (
+              .map((item, idx) => {
+                const isMinor = item.importance === 'minor'
+                const webHref = item.webUrl ?? item.webURL
+                const cardId = (day.date || String(dIdx)) + '-' + idx
+                const isOpen = !!openIds[cardId]
+                const toggleOpen = () => {
+                  if (!webHref) return
+                  setOpenIds((prev) => ({ ...prev, [cardId]: !prev[cardId] }))
+                }
+                return (
               <Card
-                key={(day.date || String(dIdx)) + '-' + idx}
+                key={cardId}
                 component="li"
                 className="card"
                 variant="outlined"
                 elevation={0}
-                sx={{ borderColor: 'divider', boxShadow: '0 2px 10px rgba(0,0,0,0.06)', borderRadius: '12px' }}
+                sx={{ borderColor: 'divider', boxShadow: '0 2px 10px rgba(0,0,0,0.06)', borderRadius: '12px', cursor: webHref ? 'pointer' : 'default' }}
+                aria-expanded={isOpen}
               >
-                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems="center">
-                  <Box sx={{ width: { xs: '100%', sm: 240 } }}>
-                    {item.photoUrl ? (
-                      <CardMedia component="img" src={item.photoUrl} alt={item.title?.trim() || 'タイトルなし'} sx={{ width: '100%', aspectRatio: '16/9', borderRadius: '10px' }} />
-                    ) : (
-                      <Box className="img-placeholder" sx={{ width: '100%', aspectRatio: '16/9', borderRadius: '10px' }} aria-label={item.title?.trim() || 'タイトルなし'} />
-                    )}
-                  </Box>
-                  <CardContent sx={{ p: 0, flex: 1 }}>
-                    <Typography variant="h6" className="card-title">{item.title?.trim() || 'タイトルなし'}</Typography>
-                    <Stack direction="row" spacing={1} alignItems="center" className="meta-row">
-                      <AccessTimeIcon fontSize="small" />
-                      <Typography variant="body2" className="time-range">
-                        <TimeRangeText start={item.startTime} end={item.endTime} />
-                      </Typography>
-                    </Stack>
-                    <Stack direction="row" spacing={1} alignItems="center" className="meta-row">
-                      <LocationOnIcon fontSize="small" />
-                      <Typography variant="body2" className="place">{item.place ?? ''}</Typography>
-                    </Stack>
-                    {(item.webUrl || item.webURL) && (
+                <CardActionArea onClick={toggleOpen} sx={{ borderRadius: '12px' }} disableRipple={!webHref}>
+                  <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems="center">
+                    <Box sx={{ width: { xs: '100%', sm: 240 } }}>
+                      {item.photoUrl ? (
+                        <CardMedia component="img" src={item.photoUrl} alt={item.title?.trim() || 'タイトルなし'} sx={{ width: '100%', aspectRatio: '16/9', borderRadius: '10px' }} />
+                      ) : (
+                        <Box className="img-placeholder" sx={{ width: '100%', aspectRatio: '16/9', borderRadius: '10px' }} aria-label={item.title?.trim() || 'タイトルなし'} />
+                      )}
+                    </Box>
+                    <CardContent sx={{ p: 0, flex: 1 }}>
+                      <Typography variant="h6" className="card-title">{item.title?.trim() || 'タイトルなし'}</Typography>
                       <Stack direction="row" spacing={1} alignItems="center" className="meta-row">
-                        <OpenInNewIcon fontSize="small" />
-                        <Link
-                          href={(item.webUrl ?? item.webURL) || undefined}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          underline="hover"
-                          variant="body2"
-                        >
-                          Webサイトを開く
-                        </Link>
+                        <AccessTimeIcon fontSize="small" />
+                        <Typography variant="body2" className="time-range">
+                          <TimeRangeText start={item.startTime} end={item.endTime} />
+                        </Typography>
                       </Stack>
-                    )}
-                    {Array.isArray(item.tags) && item.tags.length > 0 && (
-                      <Stack direction="row" spacing={1} flexWrap="wrap" className="tags">
-                        {item.tags.map((t) => (
-                          <Chip key={t} label={t} size="small" variant="outlined" />
-                        ))}
+                      <Stack direction="row" spacing={1} alignItems="center" className="meta-row">
+                        <LocationOnIcon fontSize="small" />
+                        <Typography variant="body2" className="place">{item.place ?? ''}</Typography>
                       </Stack>
-                    )}
-                  </CardContent>
-                </Stack>
+                      {Array.isArray(item.tags) && item.tags.length > 0 && (
+                        <Stack direction="row" spacing={1} flexWrap="wrap" className="tags">
+                          {item.tags.map((t) => (
+                            <Chip key={t} label={t} size="small" variant="outlined" />
+                          ))}
+                        </Stack>
+                      )}
+                    </CardContent>
+                  </Stack>
+                </CardActionArea>
+                {webHref && (
+                  <Collapse in={isOpen} timeout="auto" unmountOnExit>
+                    <Box onClick={(e) => e.stopPropagation()} sx={{ p: 2, pt: 0 }}>
+                      <Typography variant="body2" sx={{ mb: 1 }}>
+                        プレビューが表示されない場合は{' '}
+                        <Link href={webHref} target="_blank" rel="noopener noreferrer" underline="hover">こちら</Link> を開いてください。
+                      </Typography>
+                      <Box sx={{ position: 'relative', overflow: 'hidden', borderRadius: 1, height: 360, bgcolor: 'background.default' }}>
+                        <Box component="iframe" src={webHref} title={item.title?.trim() || 'Webプレビュー'} sx={{ width: '100%', height: '100%', border: 0 }} />
+                      </Box>
+                    </Box>
+                  </Collapse>
+                )}
               </Card>
-            ))}
+            )})}
           </Stack>
         </section>
       ))}
