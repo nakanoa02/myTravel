@@ -14,6 +14,8 @@ import Alert from '@mui/material/Alert'
 import CircularProgress from '@mui/material/CircularProgress'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
+import OpenInNewIcon from '@mui/icons-material/OpenInNew'
+import Link from '@mui/material/Link'
 
 type PlanItem = {
   photoUrl?: string
@@ -23,6 +25,8 @@ type PlanItem = {
   place: string
   tags?: string[]
   importance?: 'main' | 'minor'
+  webUrl?: string
+  webURL?: string
 }
 
 type Day = {
@@ -143,6 +147,20 @@ export default function TravelPage() {
                       <LocationOnIcon fontSize="small" />
                       <Typography variant="body2" className="place">{item.place ?? ''}</Typography>
                     </Stack>
+                    {(item.webUrl || item.webURL) && (
+                      <Stack direction="row" spacing={1} alignItems="center" className="meta-row">
+                        <OpenInNewIcon fontSize="small" />
+                        <Link
+                          href={(item.webUrl ?? item.webURL) || undefined}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          underline="hover"
+                          variant="body2"
+                        >
+                          Webサイトを開く
+                        </Link>
+                      </Stack>
+                    )}
                     {Array.isArray(item.tags) && item.tags.length > 0 && (
                       <Stack direction="row" spacing={1} flexWrap="wrap" className="tags">
                         {item.tags.map((t) => (
