@@ -26,6 +26,3 @@ dist-ssr
 # env
 .env
 
-# public
-public/images/
-public/mock/api

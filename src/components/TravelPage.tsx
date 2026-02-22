@@ -45,6 +45,30 @@ function compareTime(a?: string, b?: string) {
   return (a ?? '').localeCompare(b ?? '')
 }
 
+function toYouTubeEmbed(href?: string): string | null {
+  if (!href) return null
+  try {
+    const u = new URL(href)
+    const host = u.hostname.replace(/^www\./, '')
+    if (host === 'youtube.com' || host === 'm.youtube.com' || host === 'youtu.be' || host === 'youtube-nocookie.com') {
+      // youtu.be/<id>
+      if (host === 'youtu.be' && u.pathname.length > 1) {
+        const id = u.pathname.slice(1).split('/')[0]
+        return `https://www.youtube.com/embed/${id}?rel=0`
+      }
+      // /watch?v=<id>
+      const v = u.searchParams.get('v')
+      if (v) return `https://www.youtube.com/embed/${v}?rel=0`
+      // /shorts/<id>
+      if (u.pathname.startsWith('/shorts/')) {
+        const id = u.pathname.split('/')[2]
+        if (id) return `https://www.youtube.com/embed/${id}?rel=0`
+      }
+    }
+  } catch {}
+  return null
+}
+
 function TimeRangeText({ start, end }: { start?: string; end?: string }) {
   const s = start?.trim()
   const e = end?.trim()
@@ -123,6 +147,7 @@ export default function TravelPage() {
               .map((item, idx) => {
                 const isMinor = item.importance === 'minor'
                 const webHref = item.webUrl ?? item.webURL
+                const embedHref = toYouTubeEmbed(webHref) || null
                 const cardId = (day.date || String(dIdx)) + '-' + idx
                 const isOpen = !!openIds[cardId]
                 const toggleOpen = () => {
@@ -170,16 +195,28 @@ export default function TravelPage() {
                     </CardContent>
                   </Stack>
                 </CardActionArea>
-                {webHref && (
+                {(embedHref || webHref) && (
                   <Collapse in={isOpen} timeout="auto" unmountOnExit>
                     <Box onClick={(e) => e.stopPropagation()} sx={{ p: 2, pt: 0 }}>
-                      <Typography variant="body2" sx={{ mb: 1 }}>
-                        プレビューが表示されない場合は{' '}
-                        <Link href={webHref} target="_blank" rel="noopener noreferrer" underline="hover">こちら</Link> を開いてください。
-                      </Typography>
-                      <Box sx={{ position: 'relative', overflow: 'hidden', borderRadius: 1, height: 360, bgcolor: 'background.default' }}>
-                        <Box component="iframe" src={webHref} title={item.title?.trim() || 'Webプレビュー'} sx={{ width: '100%', height: '100%', border: 0 }} />
-                      </Box>
+                      {embedHref ? (
+                        <Box sx={{ position: 'relative', overflow: 'hidden', borderRadius: 1, aspectRatio: '16 / 9', bgcolor: 'background.default' }}>
+                          <Box
+                            component="iframe"
+                            src={embedHref}
+                            title={item.title?.trim() || 'Webプレビュー'}
+                            sx={{ width: '100%', height: '100%', border: 0 }}
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen
+                          />
+                        </Box>
+                      ) : (
+                        <>
+                          <Typography variant="body2" sx={{ mb: 1 }}>
+                            このサイトは埋め込みを許可していない可能性があります。{' '}
+                            <Link href={webHref} target="_blank" rel="noopener noreferrer" underline="hover">新しいタブで開く</Link>
+                          </Typography>
+                        </>
+                      )}
                     </Box>
                   </Collapse>
                 )}

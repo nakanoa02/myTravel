@@ -1,0 +1,282 @@
+[
+  {
+    "date": "2025-03-20",
+    "items": [
+      {
+        "title": "待ち合わせ",
+        "startTime": "09:30",
+        "endTime": "",
+        "place": "成田空港 第１ターミナル 南ウィング",
+        "tags": ["airport"],
+        "photoUrl": "/images/narita_airport.svg",
+        "webUrl":"https://www.youtube.com/watch?v=3wsVZxkL1uc"
+      },
+      {
+        "title": "出国検査",
+        "startTime": "09:30",
+        "endTime": "",
+        "place": "成田空港 第１ターミナル 出国ゲート",
+        "tags": ["airport"],
+        "photoUrl": "/images/narita_airport_depature.svg",
+        "importance": "minor",
+        "webUrl":"https://www.youtube.com/watch?v=3wsVZxkL1uc"
+      },
+      {
+        "title": "成田を出発",
+        "startTime": "11:25",
+        "endTime": "",
+        "place": "成田空港 第１ターミナル 搭乗ゲート",
+        "tags": ["airport"],
+        "photoUrl": "/images/narita_airport_flight.svg",
+        "webUrl":"https://www.youtube.com/watch?v=3wsVZxkL1uc"
+      },
+      {
+        "title": "釜山に到着",
+        "startTime": "13:55",
+        "endTime": "",
+        "place": "金海空港",
+        "tags": ["airport"],
+        "photoUrl": "/images/gimhae_airport_arrival.svg",
+        "webUrl":"https://www.youtube.com/results?search_query=%E9%87%91%E6%B8%AF%E7%A9%BA%E6%B8%AF"
+      },
+      {
+        "title": "入国審査",
+        "startTime": "13:55",
+        "endTime": "15:00",
+        "place": "金海空港 入国ゲート",
+        "tags": ["airport"],
+        "photoUrl": "/images/gimhae_airport_immigration.svg",
+        "importance": "minor",
+        "webUrl":"https://www.youtube.com/results?search_query=%E9%87%91%E6%B8%AF%E7%A9%BA%E6%B8%AF"
+      },
+      {
+        "title": "宿泊先へ移動",
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "place": "金海空港→チャガルチ駅",
+        "tags": ["train"],
+        "photoUrl": "/images/busan_train_line2.svg",
+        "importance": "minor",
+        "webUrl": "https://www.youtube.com/watch?v=huavYiHwL80"
+      },
+      {
+        "title": "ホテルチェックイン",
+        "startTime": "16:00",
+        "endTime": "16:30",
+        "place": "Hound Hotel Premier Nampo",
+        "tags": ["hotel"],
+        "photoUrl": "/images/busan_hotel.svg",
+        "webUrl": "https://www.youtube.com/watch?v=huavYiHwL80"
+      },
+      {
+        "title": "市場屋台を食べ歩き",
+        "startTime": "16:30",
+        "endTime": "18:00",
+        "place": "金海空港",
+        "tags": ["food"],
+        "photoUrl": "/images/busan_market.svg",
+        "webUrl": "https://www.youtube.com/watch?v=o6eM4sPEP-k"
+      },
+      {
+        "title": "アテネ学堂カフェ",
+        "startTime": "18:00",
+        "endTime": "18:30",
+        "place": "金海空港",
+        "tags": ["cafe", "art"],
+        "photoUrl": "/images/atenai_cafe.svg",
+        "webUrl": "https://www.youtube.com/watch?v=FKRdZeZ2Eu4"
+      },
+      {
+        "title": "荒嶺山へ移動",
+        "startTime": "18:30",
+        "endTime": "19:00",
+        "place": "金海空港",
+        "tags": ["taxi"],
+        "photoUrl": "/images/placeholder.svg",
+        "importance": "minor",
+        "webUrl": "https://www.youtube.com/watch?v=hqWGJsl5Y-k"
+      },
+      {
+        "title": "荒嶺山で夜景見る",
+        "startTime": "19:00",
+        "endTime": "20:00",
+        "place": "荒嶺山",
+        "tags": ["walking", "view"],
+        "photoUrl": "/images/Hwangnyeongsan.svg",
+        "webUrl": "https://www.youtube.com/watch?v=hqWGJsl5Y-k"
+      },
+      {
+        "title": "釜山駅へ移動",
+        "startTime": "20:00",
+        "endTime": "20:30",
+        "place": "釜山駅",
+        "tags": ["airport"],
+        "photoUrl": "/images/placeholder.svg",
+        "importance": "minor",
+        "webUrl": "https://www.youtube.com/watch?v=Fc7bnA-6C-0"
+      },
+      {
+        "title": "テキサスストリート徘徊",
+        "startTime": "20:30",
+        "endTime": "21:30",
+        "place": "釜山駅",
+        "tags": ["walking", "dangerous"],
+        "photoUrl": "/images/texas_street.svg",
+        "webUrl": "https://www.youtube.com/watch?v=Fc7bnA-6C-0"
+      },
+      {
+        "title": "ホテルへ移動",
+        "startTime": "21:30",
+        "endTime": "22:00",
+        "place": "釜山駅",
+        "tags": ["taxi"],
+        "photoUrl": "/images/placeholder.svg",
+        "importance": "minor",
+        "webUrl": "https://www.youtube.com/watch?v=huavYiHwL80"
+      },
+      {
+        "title": "1日目終了",
+        "startTime": "22:00",
+        "endTime": "",
+        "place": "Hound Hotel Premier Nampo",
+        "tags": ["hotel"],
+        "photoUrl": "/images/busan_hotel_night.svg",
+        "webUrl": "https://www.youtube.com/watch?v=huavYiHwL80"
+      }
+    ]
+  },
+  {
+    "date": "2025-03-21",
+    "items": [
+      {
+        "title": "2日目スタート",
+        "startTime": "07:00",
+        "endTime": "",
+        "place": "Hound Hotel Premier Nampo",
+        "tags": ["morning"],
+        "photoUrl": "/images/busan_hotel.svg",
+        "webUrl": "https://www.youtube.com/watch?v=huavYiHwL80"
+      },
+      {
+        "title": "甘川文化村へ移動",
+        "startTime": "07:30",
+        "endTime": "08:00",
+        "place": "甘川文化村",
+        "tags": ["taxi"],
+        "photoUrl": "/images/placeholder.svg",
+        "importance": "minor",
+        "webUrl": "https://www.youtube.com/watch?v=txWIQFWpkUc"
+      },
+      {
+        "title": "甘川文化村を散策",
+        "startTime": "08:00",
+        "endTime": "09:30",
+        "place": "甘川文化村",
+        "tags": ["walking", "view"],
+        "photoUrl": "/images/gamcheon_village.svg",
+        "webUrl": "https://www.youtube.com/watch?v=txWIQFWpkUc"
+      },
+      {
+        "title": "ホテルへ移動",
+        "startTime": "09:30",
+        "endTime": "10:00",
+        "place": "Hound Hotel Premier Nampo",
+        "tags": ["taxi"],
+        "photoUrl": "/images/busan_hotel.svg",
+        "importance": "minor",
+        "webUrl": "https://www.youtube.com/watch?v=huavYiHwL80"
+      },
+      {
+        "title": "ホテルに戻ってチェックアウト",
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "place": "Hound Hotel Premier Nampo",
+        "tags": ["taxi"],
+        "photoUrl": "/images/busan_hotel.svg",
+        "webUrl": "https://www.youtube.com/watch?v=huavYiHwL80"
+      },
+      {
+        "title": "釜山駅へ移動 / ロッカー荷物預け",
+        "startTime": "11:00",
+        "endTime": "11:30",
+        "place": "チャガルチ駅→釜山駅",
+        "tags": ["train"],
+        "photoUrl": "/images/placeholder.svg",
+        "importance": "minor"
+      },
+      {
+        "title": "海雲台へ移動",
+        "startTime": "11:30",
+        "endTime": "12:30",
+        "place": "釜山駅→海雲台駅",
+        "tags": ["train"],
+        "photoUrl": "/images/placeholder.svg",
+        "importance": "minor"
+      },
+      {
+        "title": "海雲台あわび粥を食べる",
+        "startTime": "12:30",
+        "endTime": "13:30",
+        "place": "元祖チョンボッ粥 本店",
+        "tags": ["food"],
+        "photoUrl": "/images/awabi_gayu.svg",
+        "webUrl": "https://www.youtube.com/watch?v=Ghh62biw27w"
+      },
+      {
+        "title": "スカイカプセルに乗る",
+        "startTime": "14:30",
+        "endTime": "15:30",
+        "place": "海雲台スカイカプセル",
+        "tags": ["food"],
+        "photoUrl": "/images/haeundae_skycapcell.svg",
+        "webUrl": "https://www.youtube.com/shorts/TQrRKVDTvyY"
+      },
+      {
+        "title": "ビーチ散策",
+        "startTime": "15:30",
+        "endTime": "16:00",
+        "place": "海雲台ビーチ",
+        "tags": ["food"],
+        "photoUrl": "/images/haeundae_beach.svg",
+        "webUrl": "https://www.youtube.com/shorts/TQrRKVDTvyY"
+      },
+      {
+        "title": "MuMu Bakeryカフェ",
+        "startTime": "13:30",
+        "endTime": "14:30",
+        "place": "Muun Bakery",
+        "tags": ["food"],
+        "photoUrl": "/images/muun_bakery.svg",
+        "webURL": "https://www.youtube.com/watch?v=I5iEIN1V-N8"
+      },
+      {
+        "title": "東海龍宮寺を参拝",
+        "startTime": "16:00",
+        "endTime": "17:30",
+        "place": "東海龍宮寺",
+        "tags": ["food"],
+        "photoUrl": "/images/tera.svg",
+        "webURL": "https://www.youtube.com/watch?v=TScYCODcNZE"
+      },
+      {
+        "title": "釜山駅へ移動",
+        "startTime": "17:30",
+        "endTime": "18:30",
+        "place": "海雲台→釜山駅",
+        "tags": ["train"],
+        "photoUrl": "/images/placeholder.svg",
+        "importance": "minor",
+        "webURL": "https://www.youtube.com/watch?v=G_U9YqKqDjE"
+      },
+      {
+        "title": "ソウルへ新幹線で移動",
+        "startTime": "19:00",
+        "endTime": "21:30",
+        "place": "釜山駅→ソウル駅",
+        "tags": ["train"],
+        "photoUrl": "/images/placeholder.svg",
+        "webURL": "https://www.youtube.com/watch?v=G_U9YqKqDjE"
+      }
+    ]
+  }
+]
