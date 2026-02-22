@@ -145,7 +145,6 @@ export default function TravelPage() {
               .filter((it) => showMinor || it.importance !== 'minor')
               .sort((i1, i2) => compareTime(i1.startTime, i2.startTime))
               .map((item, idx) => {
-                const isMinor = item.importance === 'minor'
                 const webHref = item.webUrl ?? item.webURL
                 const embedHref = toYouTubeEmbed(webHref) || null
                 const cardId = (day.date || String(dIdx)) + '-' + idx
